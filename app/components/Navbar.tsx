@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import Menu from "./Menu"
 import SearchBar from "./SearchBar"
 import NavIcons from "./NavIcons"
@@ -19,7 +20,7 @@ const Navbar = () => {
           {/* Left */}
           <div className="w-1/3">
             <Link href="/" className="flex items-center gap-3">
-            {/*TODO: Add logo here later */}
+            <Image src="/icon.png" alt="" width={50} height={50}/>
             <div className="text-2xl tracking-wide">HAZETCG</div>
             </Link>
           </div>

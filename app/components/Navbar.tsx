@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Menu from "./Menu"
 import SearchBar from "./SearchBar"
+import NavIcons from "./NavIcons"
 
 
 const Navbar = () => {
@@ -25,6 +26,7 @@ const Navbar = () => {
           {/* Right */}
           <div className="w-2/3 flex items-center justify-between gap-8">
           <SearchBar/>
+          <NavIcons/>
           </div>          
         </div>
     </div>

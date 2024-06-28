@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import searchPage from "../search/page";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -13,6 +14,7 @@ const SearchBar = () => {
 
     if (query) {
       router.push(`/search?query=${query}`);
+      searchPage(query);
     }
   };
 

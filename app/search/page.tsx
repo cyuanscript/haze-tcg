@@ -35,6 +35,20 @@ export default async function searchPage(q: any) {
     return USD.format(thePrice)
   }
 
+  function sortByPrice(data: any[], descending = false) {
+    return data.sort((a, b) => {
+      const priceA = parseFloat(getPrice(a).replace(/[^0-9.-]+/g, "")); // Extract numeric value from price
+      const priceB = parseFloat(getPrice(b).replace(/[^0-9.-]+/g, ""));
+      if (descending) {
+        return priceB - priceA; // Descending order
+      } else {
+        return priceA - priceB; // Ascending order (default)
+      }
+    });
+  }
+
+  const sortedData = sortByPrice(data.data, true); // Sort high-to-low
+
   return (
     <div>
       <ul className="grid grid-cols-2 gap-4 items-center mx-3 md:hidden">

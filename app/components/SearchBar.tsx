@@ -2,10 +2,22 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import searchPage from "../search/page";
 
 const SearchBar = () => {
   const router = useRouter();
+  const suggestionList = ['Search For Cards...', 'Try Searching "Umbreon"', 'Try Searching "Charizard ex"' , 'Try Searching "Ultra Ball"']
+  const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const nextIndex = (currentSuggestionIndex + 1) % suggestionList.length;
+      setCurrentSuggestionIndex(nextIndex);
+    }, 3000);
+    return () => clearInterval(intervalId);
+  }, [currentSuggestionIndex]);
+  
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,7 +38,7 @@ const SearchBar = () => {
       <input
         type="text"
         name="query"
-        placeholder="Search For Cards..."
+        placeholder={suggestionList[currentSuggestionIndex]}
         className="flex-1 bg-transparent outline-none"
       />
       <button className="cursor-pointer">

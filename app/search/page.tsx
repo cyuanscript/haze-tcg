@@ -5,7 +5,7 @@ import { Key } from "react";
 export default async function searchPage(q: any) {
   const getCards = async () => {
     const res = await fetch(
-      `https://api.pokemontcg.io/v2/cards?q=name:${q.searchParams.query}`
+      `https://api.pokemontcg.io/v2/cards?q=name:"*${q.searchParams.query}*"`
     );
     return res.json();
   };

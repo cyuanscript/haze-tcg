@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ModeToggle } from "./DarkModeToggle";
 
 const NavIcons = () => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -42,6 +43,7 @@ const NavIcons = () => {
           <div className="mt-2 cursor-pointer">Logout</div>
         </div>
       )}
+      {ModeToggle()}
     </div>
   );
 };

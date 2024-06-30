@@ -51,6 +51,9 @@ export default async function searchPage(q: any) {
 
   return (
     <div>
+      <div className="h-16 px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 relative">
+        Sort By:
+      </div>
       <ul className="grid grid-cols-2 gap-4 items-center mx-3 md:hidden">
         {data.data.map(
           (item: {
@@ -63,7 +66,7 @@ export default async function searchPage(q: any) {
               <li className="flex flex-center p-8 bg-gray-100 rounded-xl shadow-md" key={index}>
                 <Link href="/" className="relative">
                   <img src={item.images.large} className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"/>
-                  <p className="font-bold text-lg pt-4">{item.name} #{item.number}</p>
+                  <p className="font-bold text-lg pt-4">{item.name}<br/> #{item.number}</p>
                   <p className="text-gray-500 text-sm flex gap-1 pb-2">{item.set.name}
                     <img src={item.set.images.symbol} className="w-5 h-5"/>
                   </p>
@@ -88,7 +91,7 @@ export default async function searchPage(q: any) {
               <li className="flex flex-center p-8 bg-gray-100 rounded-xl shadow-md" key={index}>
                 <Link href="/" className="relative">
                   <img src={item.images.large} className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"/>
-                  <p className="font-bold text-lg pt-4">{item.name} #{item.number}</p>
+                  <p className="font-bold text-lg pt-4">{item.name}<br/> #{item.number}</p>
                   <p className="text-gray-500 text-sm flex gap-1 pb-2">{item.set.name}
                     <img src={item.set.images.symbol} className="w-5 h-5"/>
                   </p>
@@ -113,7 +116,7 @@ export default async function searchPage(q: any) {
               <li className="flex flex-center p-8 bg-gray-100 rounded-xl shadow-md" key={index}>
                 <Link href="/" className="relative">
                   <img src={item.images.large} className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"/>
-                  <p className="font-bold text-lg pt-4">{item.name} #{item.number}</p>
+                  <p className="font-bold text-lg pt-4">{item.name}<br/> #{item.number}</p>
                   <p className="text-gray-500 text-sm flex gap-1 pb-2">{item.set.name}
                     <img src={item.set.images.symbol} className="w-5 h-5"/>
                   </p>
@@ -138,7 +141,7 @@ export default async function searchPage(q: any) {
               <li className="flex flex-center p-8 bg-gray-100 rounded-xl shadow-md" key={index}>
                 <Link href="/" className="relative">
                   <img src={item.images.large} className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"/>
-                  <p className="font-bold text-lg pt-4">{item.name} #{item.number}</p>
+                  <p className="font-bold text-lg pt-4">{item.name}<br/> #{item.number}</p>
                   <p className="text-gray-500 text-sm flex gap-1 pb-2">{item.set.name}
                     <img src={item.set.images.symbol} className="w-5 h-5"/>
                   </p>

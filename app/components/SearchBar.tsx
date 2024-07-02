@@ -4,10 +4,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import searchPage from "../search/page";
+import { Search } from "lucide-react";
 
 const SearchBar = () => {
   const router = useRouter();
-  const suggestionList = ['Search For Cards...', 'Try Searching "Umbreon"', 'Try Searching "Charizard ex"' , 'Try Searching "Ultra Ball"']
+  const suggestionList = ['Search For Cards...', 'Try Searching "Umbreon"', 'Try Searching "Charizard ex"' , 
+    'Try Searching "Master Ball"', 'Try Searching "Lillie"']
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const SearchBar = () => {
 
   return (
     <form
-      className="flex ic justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1"
+      className="flex ic justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1 dark:bg-stone-900"
       onSubmit={handleSearch}
     >
       <input
@@ -42,7 +44,7 @@ const SearchBar = () => {
         className="flex-1 bg-transparent outline-none"
       />
       <button className="cursor-pointer">
-        <Image src="/search.png" alt="" width={24} height={16}></Image>
+        <Search/>
       </button>
     </form>
   );

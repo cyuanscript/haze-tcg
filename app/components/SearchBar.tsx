@@ -1,15 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import searchPage from "../search/page";
 import { Search } from "lucide-react";
 
 const SearchBar = () => {
   const router = useRouter();
-  const suggestionList = ['Search For Cards...', 'Try Searching "Umbreon"', 'Try Searching "Charizard ex"' , 
-    'Try Searching "Master Ball"', 'Try Searching "Lillie"']
+  const suggestionList = [
+    "Search For Cards...",
+    'Try Searching "Umbreon"',
+    'Try Searching "Charizard ex"',
+    'Try Searching "Master Ball"',
+    'Try Searching "Lillie"',
+  ];
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
 
   useEffect(() => {
@@ -19,7 +22,6 @@ const SearchBar = () => {
     }, 3000);
     return () => clearInterval(intervalId);
   }, [currentSuggestionIndex]);
-  
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +30,6 @@ const SearchBar = () => {
 
     if (query) {
       router.push(`/search?query=${query}`);
-      searchPage(query);
     }
   };
 
@@ -44,7 +45,7 @@ const SearchBar = () => {
         className="flex-1 bg-transparent outline-none"
       />
       <button className="cursor-pointer">
-        <Search/>
+        <Search />
       </button>
     </form>
   );

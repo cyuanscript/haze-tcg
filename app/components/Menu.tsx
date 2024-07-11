@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { SquareMenu } from "lucide-react"
 import Link from "next/link";
 import { useState } from "react";
 
@@ -10,14 +11,10 @@ const Menu = () => {
 
   return (
     <div className="">
-      <Image
-        src="/menu.png"
-        alt=""
-        width={28}
-        height={28}
-        className="cursor-pointer"
-        onClick={() => setOpen((prev) => !prev)}
-      />{
+      <Button variant="outline" size="icon">
+        <SquareMenu className="cursor-pointer" onClick={() => setOpen((prev) => !prev)}/>
+      </Button>
+        {
         open && (
             <div className="absolute bg-black text-white left-0 top-20 w-full h-[calc(100ch-80px)] flex flex-col items-center justify-center gap-8 text-xl z-10">
                 <Link href="/">Home</Link>

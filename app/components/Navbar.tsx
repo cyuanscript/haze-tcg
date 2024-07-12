@@ -12,7 +12,6 @@ const Navbar = () => {
         <div className="h-full flex items-center justify-between md:hidden">
             <Link href="/">
               <Image src="/icon.png" alt="" width={50} height={50}/>
-              {/* <div className="text-2xl tracking-wide">HAZETCG</div> */}
             </Link>
             <div>
               <SearchBar/>

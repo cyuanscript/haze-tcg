@@ -84,6 +84,7 @@ export default function SearchResults({ data }: any) {
         {sortedData.data.map(
           (
             item: {
+              id: string
               tcgplayer: any;
               number: string;
               set: any;
@@ -96,7 +97,7 @@ export default function SearchResults({ data }: any) {
               className=" p-8 bg-gray-100 dark:bg-stone-900 rounded-xl shadow-md"
               key={index}
             >
-              <Link href="/" className="relative">
+              <Link href={`/cards/${item.id}`} className="relative">
                 <img
                   src={item.images.large}
                   className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"

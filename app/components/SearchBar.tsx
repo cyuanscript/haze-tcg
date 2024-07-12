@@ -3,8 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
-import searchPage from "../search/page";
-import SearchResults from "./SearchResults";
 
 const SearchBar = () => {
   const router = useRouter();

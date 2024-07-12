@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { Key } from "react";
+import { Key, useEffect } from "react";
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import {
@@ -49,14 +49,13 @@ function getPrice(item: any) {
 
 export default function SearchResults({ data }: any) {
     const [sortedData, setSortedData] = useState(data)
-    const [sortType, setSortType] = useState("Price: High to Low")
-  
-    const handleSortChange = (value: string) => {
-      setSortType(value)
-      const newData = sortedData
-      sortByPrice(newData.data, value === 'Price: High to Low')
+    const [sortType, setSortType] = useState("---")
+
+    useEffect(() => {
+      const newData = data
+      sortByPrice(newData.data, sortType !== 'Price: High to Low')
       setSortedData(newData)
-    };
+    }, [data, sortType])
 
   return (
     <div>
@@ -68,7 +67,7 @@ export default function SearchResults({ data }: any) {
                     <Button variant="outline">{sortType}</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='w-56'>
-                    <DropdownMenuRadioGroup value={sortType} onValueChange={handleSortChange}>
+                    <DropdownMenuRadioGroup value={sortType} onValueChange={setSortType}>
                         <DropdownMenuRadioItem value='Price: High to Low'>Price: High to Low</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value='Price: Low to High'>Price: Low to High</DropdownMenuRadioItem>
                     </DropdownMenuRadioGroup>
@@ -94,12 +93,12 @@ export default function SearchResults({ data }: any) {
             index: Key | null
           ) => (
             <li
-              className="flex flex-center p-8 bg-gray-100 dark:bg-stone-900 rounded-xl shadow-md"
+              className=" p-8 bg-gray-100 dark:bg-stone-900 rounded-xl shadow-md"
               key={index}
             >
               <Link href="/" className="relative">
                 <img
-                  src={item.images.small}
+                  src={item.images.large}
                   className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"
                 />
                 <p className="font-bold text-lg pt-4">

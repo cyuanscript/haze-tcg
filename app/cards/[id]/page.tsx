@@ -16,8 +16,12 @@ export default async function cardPage(params: getIdParams) {
       const theCard = await getCard();
 
   return (
-    <div>
-        <img src={theCard.data.images.small}></img>
+    <div className="flex my-20 mx-64 items-center justify-between">
+      <div className="">
+        <img className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md" src={theCard.data.images.large} width={350}></img>
+        <img className="w-32" src={theCard.data.set.images.logo}></img>
+      </div>
+      <div>box</div>
     </div>
   );
 }

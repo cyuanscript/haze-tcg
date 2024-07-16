@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import { Key, useEffect } from "react";
-import React, { useState } from 'react'
-import { Button } from "@/components/ui/button"
+import React, { useState } from "react";
+import { Button } from "@/app/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/app/components/ui/dropdown-menu";
 
 function sortByPrice(data: any[], descending: boolean) {
   return data.sort((a, b) => {
@@ -48,31 +48,38 @@ function getPrice(item: any) {
 }
 
 export default function SearchResults({ data }: any) {
-    const [sortedData, setSortedData] = useState(data)
-    const [sortType, setSortType] = useState("---")
+  const [sortedData, setSortedData] = useState(data);
+  const [sortType, setSortType] = useState("---");
 
-    useEffect(() => {
-      const newData = data
-      sortByPrice(newData.data, sortType !== 'Price: High to Low')
-      setSortedData(newData)
-    }, [data, sortType])
+  useEffect(() => {
+    const newData = data;
+    sortByPrice(newData.data, sortType !== "Price: High to Low");
+    setSortedData(newData);
+  }, [data, sortType]);
 
   return (
     <div>
       <div className="h-16 px-4 md:px-8 lg:px-16 xl:32 2xl:px-64 relative">
         <div className="flex gap-4 items-center md:mx-12 lg:mx-16 xl:mx-0">
-            <p className='text-sm font-semibold'>Sort By:</p>
-            <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="outline">{sortType}</Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className='w-56'>
-                    <DropdownMenuRadioGroup value={sortType} onValueChange={setSortType}>
-                        <DropdownMenuRadioItem value='Price: High to Low'>Price: High to Low</DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem value='Price: Low to High'>Price: Low to High</DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-            </DropdownMenu>
+          <p className="text-sm font-semibold">Sort By:</p>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">{sortType}</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuRadioGroup
+                value={sortType}
+                onValueChange={setSortType}
+              >
+                <DropdownMenuRadioItem value="Price: High to Low">
+                  Price: High to Low
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="Price: Low to High">
+                  Price: Low to High
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
       <ul
@@ -84,7 +91,7 @@ export default function SearchResults({ data }: any) {
         {sortedData.data.map(
           (
             item: {
-              id: string
+              id: string;
               tcgplayer: any;
               number: string;
               set: any;

@@ -82,10 +82,10 @@ const Hero = () => {
                     ></Image>
                   </CarouselItem>
                   <CarouselItem>
-                    <Image 
-                      src={lillie} 
-                      alt="" 
-                      width={1000} 
+                    <Image
+                      src={lillie}
+                      alt=""
+                      width={1000}
                       height={1000}
                     ></Image>
                   </CarouselItem>

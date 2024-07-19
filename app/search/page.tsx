@@ -1,6 +1,12 @@
 import SearchResults from "../components/SearchResults";
 
-export default async function searchPage(q: any) {
+interface SearchParams {
+  searchParams: {
+    query: string;
+  };
+};
+
+export default async function searchPage(q: SearchParams) {
   const query = q.searchParams?.query;
   const getCards = async () => {
     const res = await fetch(

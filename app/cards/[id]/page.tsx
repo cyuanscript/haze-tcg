@@ -13,7 +13,7 @@ export default async function cardPage(params: getIdParams) {
         return res.json();
       };
 
-      const theCard = await getCard();
+    const theCard = await getCard();
 
   return (
     <div className="flex my-20 mx-64 items-center justify-between">

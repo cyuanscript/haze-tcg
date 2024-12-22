@@ -1,17 +1,17 @@
 import SearchResults from "../components/SearchResults";
 
-interface SearchParams {
-  searchParams: {
-    query: string;
-  };
-};
-
-export default async function searchPage(q: SearchParams) {
-  const query = q.searchParams?.query;
+export default async function SearchPage({ searchParams }: { searchParams: { query?: string } }) {
+  const query = searchParams.query;
+  
   const getCards = async () => {
-    const res = await fetch(
-      `https://api.pokemontcg.io/v2/cards?q=name:"*${query}*"`
-    );
+    if (!query) return { data: [] }; // Return empty data if no query
+    
+    const res = await fetch(`https://api.pokemontcg.io/v2/cards?q=name:"*${query}*"`);
+    if (!res.ok) {
+      console.error('Failed to fetch search results');
+      return { data: [] };
+    }
+    
     return res.json();
   };
 
@@ -19,7 +19,7 @@ export default async function searchPage(q: SearchParams) {
 
   return (
     <div>
-      <SearchResults data={data}/>
+      <SearchResults data={data} />
     </div>
   );
 }

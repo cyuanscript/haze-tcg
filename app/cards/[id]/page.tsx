@@ -1,10 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-interface CardPageProps {
-  params: { id: string };
-}
-
 function getPrice(item: any) {
   let thePrice;
   let USD = new Intl.NumberFormat("en-US", {
@@ -28,7 +24,7 @@ function getPrice(item: any) {
   return USD.format(thePrice);
 }
 
-const CardPage = async ({ params }: CardPageProps) => {
+const CardPage = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
 
   const res = await fetch(`https://api.pokemontcg.io/v2/cards/${id}`);

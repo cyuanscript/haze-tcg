@@ -1,0 +1,24 @@
+datasource db {
+  provider = "postgresql" // or your preferred database
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Card {
+  id        String   @id
+  name      String
+  set       String
+  number    String
+  prices    Price[]
+}
+
+model Price {
+  id        Int      @id @default(autoincrement())
+  cardId    String
+  price     Float?
+  date      DateTime @default(now())
+  card      Card     @relation(fields: [cardId], references: [id])
+}

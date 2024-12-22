@@ -42,14 +42,14 @@ export default async function cardPage(params: getIdParams) {
 
   return (
     <div className="flex my-20 mx-40 relative">
-      <div className="">
+      <div className="ml-40">
         <img className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md" src={theCard.data.images.large} width={350}></img>
-        <img className="w-36 top-full right-2/3 absolute z-10" src={theCard.data.set.images.logo} alt="set logo"></img>
+        <img className="w-36 top-full absolute z-10" src={theCard.data.set.images.logo} alt="set logo"></img>
       </div>
       <div className="text-4xl pt-3 px-6 font-bold">
         <p>{theCard.data.name} - #{theCard.data.number}</p>
         <Link className="text-xl font-normal px-1 pt-1" href={""}>{theCard.data.set.name}</Link>
-        <p>{getPrice(theCard.data)}</p>
+        <p className="text-green-700">{getPrice(theCard.data)}</p>
       </div>
     </div>
   );

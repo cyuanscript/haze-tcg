@@ -1,6 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 
+async function getCardData(id: string) {
+  const res = await fetch(`https://api.pokemontcg.io/v2/cards/${id}`);
+  if (!res.ok) {
+    throw new Error('Failed to fetch card data');
+  }
+  return res.json();
+}
+
 function getPrice(item: any) {
   let thePrice;
   let USD = new Intl.NumberFormat("en-US", {
@@ -26,9 +34,7 @@ function getPrice(item: any) {
 
 const CardPage = async ({ params }: { params: { id: string } }) => {
   const { id } = params;
-
-  const res = await fetch(`https://api.pokemontcg.io/v2/cards/${id}`);
-  const theCard = await res.json();
+  const theCard = await getCardData(id);
 
   return (
     <div className="flex my-20 mx-40 relative">

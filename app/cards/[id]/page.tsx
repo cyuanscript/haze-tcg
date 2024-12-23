@@ -25,7 +25,7 @@ function getPrice(item: any) {
   return USD.format(thePrice);
 }
 
-export default async function cardPage({ params }: { params: { id: string } }) {
+export default async function cardPage({ params }: { params: { id: any } }) {
   const id = params.id;
 
   const getCard = async () => {

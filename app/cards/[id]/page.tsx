@@ -34,7 +34,7 @@ export default async function cardPage(params: any) {
   };
 
   const getPriceHistory = async () => {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://haze-tcg.vercel.app';
     const res = await fetch(`${baseUrl}/api/priceHistory?cardId=${id}`);
     return res.json();
   };

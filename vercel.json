@@ -1,6 +1,5 @@
 {
     "crons": [{
-      "path": "/api/updateCards",
-      "schedule": "0 0 * * *"
+      
     }]
   }

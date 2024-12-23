@@ -33,7 +33,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/practice.jsx"
+    "app/components/practice.jsx",
+    "trigger.config.ts"
   ],
   "exclude": [
     "node_modules"

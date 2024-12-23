@@ -2,45 +2,29 @@ import Link from "next/link";
 import Image from "next/image";
 import PriceChart from "../../components/PriceChart";
 
-function getPrice(item: any) {
-  let thePrice;
-  let USD = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
+// This is a server component. If you need hooks, you may need to designate specific components as client components.
+export default async function cardPage({ params }: { params: { id: string } }) {
+  const { id } = params;
 
-  if (item.tcgplayer?.prices?.normal?.market) {
-    thePrice = item.tcgplayer.prices.normal.market;
-  } else if (item.tcgplayer?.prices?.holofoil?.market) {
-    thePrice = item.tcgplayer.prices.holofoil.market;
-  } else if (item.tcgplayer?.prices?.reverseHolofoil?.market) {
-    thePrice = item.tcgplayer.prices.reverseHolofoil.market;
-  } else if (item.tcgplayer?.prices?.unlimitedHolofoil?.market) {
-    thePrice = item.tcgplayer.prices.unlimitedHolofoil.market;
-  } else if (item.tcgplayer?.prices?.uncommon?.market) {
-    thePrice = item.tcgplayer.prices.uncommon.market;
-  } else {
-    return "N/A";
-  }
-  return USD.format(thePrice);
-}
-
-export default async function cardPage({ params }: { params: { id: any } }) {
-  const id = params.id;
-
-  const getCard = async () => {
+  async function getCardData(id: string) {
     const res = await fetch(`https://api.pokemontcg.io/v2/cards/${id}`);
+    if (!res.ok) {
+      throw new Error('Failed to fetch card data');
+    }
     return res.json();
-  };
+  }
 
-  const getPriceHistory = async () => {
+  async function getPriceHistoryData(cardId: string) {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/priceHistory?cardId=${id}`);
+    const res = await fetch(`${baseUrl}/api/priceHistory?cardId=${cardId}`);
+    if (!res.ok) {
+      throw new Error('Failed to fetch price history');
+    }
     return res.json();
-  };
+  }
 
-  const theCard = await getCard();
-  const priceHistory = await getPriceHistory();
+  const theCard = await getCardData(id);
+  const priceHistory = await getPriceHistoryData(id);
 
   return (
     <div className="flex my-20 mx-40 relative">
@@ -74,4 +58,27 @@ export default async function cardPage({ params }: { params: { id: any } }) {
       </div>
     </div>
   );
+}
+
+function getPrice(item: any) {
+  let thePrice;
+  let USD = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+
+  if (item.tcgplayer?.prices?.normal?.market) {
+    thePrice = item.tcgplayer.prices.normal.market;
+  } else if (item.tcgplayer?.prices?.holofoil?.market) {
+    thePrice = item.tcgplayer.prices.holofoil.market;
+  } else if (item.tcgplayer?.prices?.reverseHolofoil?.market) {
+    thePrice = item.tcgplayer.prices.reverseHolofoil.market;
+  } else if (item.tcgplayer?.prices?.unlimitedHolofoil?.market) {
+    thePrice = item.tcgplayer.prices.unlimitedHolofoil.market;
+  } else if (item.tcgplayer?.prices?.uncommon?.market) {
+    thePrice = item.tcgplayer.prices.uncommon.market;
+  } else {
+    return "N/A";
+  }
+  return USD.format(thePrice);
 }

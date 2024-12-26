@@ -1,6 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
-import PriceChart from "../../components/PriceChart";
+import PriceChart from "@/app/components/PriceChart";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
+import { Car } from "lucide-react";
 
 function getPrice(item: any) {
   let thePrice;
@@ -43,33 +52,49 @@ export default async function cardPage(params: any) {
   const priceHistory = await getPriceHistory();
 
   return (
-    <div className="flex my-20 mx-40 relative">
-      <div className="ml-40">
-        <Image
-          className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md"
-          src={theCard.data.images.large}
-          width={350}
-          height={350}
-          alt={theCard.data.name}
-        />
-        <Image
-          className="w-36 top-full absolute z-10"
-          src={theCard.data.set.images.logo}
-          width={144}
-          height={144}
-          alt="set logo"
-        />
-      </div>
-      <div className="text-4xl pt-3 px-6 font-bold">
-        <p>
-          {theCard.data.name} - #{theCard.data.number}
-        </p>
-        <Link className="text-xl font-normal px-1 pt-1" href="">
-          {theCard.data.set.name}
-        </Link>
-        <p className="text-green-700">{getPrice(theCard.data)}</p>
-        <div className="mt-10">
-          <PriceChart priceHistory={priceHistory} />
+    <div className="container mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left column - Card Image and Details */}
+        <Card>
+          <CardHeader>
+            <CardTitle>{theCard.data.name} - #{theCard.data.number}</CardTitle>
+            <CardDescription>
+              <Link href="">
+                {theCard.data.set.name}
+              </Link>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center relative">
+            <Image
+              className="transition ease-in-out delay-150 hover:scale-105 hover:shadow-xl rounded-md shadow-md pb-7"
+              src={theCard.data.images.large}
+              width={350}
+              height={350}
+              alt={theCard.data.name}
+            />
+            <Image
+              className="absolute right-1 md:right-28 bottom-2"
+              src={theCard.data.set.images.logo}
+              width={120}
+              height={120}
+              alt="set logo"
+            />
+          </CardContent>
+        </Card>
+
+        {/* Right column - Price Charts */}
+        <div className="flex flex-col gap-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Market Price</CardTitle>
+              <CardDescription>
+                <div className="text-green-700 text-xl font-bold">{getPrice(theCard.data)}</div>
+              </CardDescription>
+            </CardHeader>
+          </Card>
+          <div className="">
+            <PriceChart priceHistory={priceHistory} />
+          </div>
         </div>
       </div>
     </div>

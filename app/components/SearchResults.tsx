@@ -14,13 +14,10 @@ import {
 
 function sortByPrice(data: any[], descending: boolean) {
   return data.sort((a, b) => {
-    const priceA = parseFloat(getPrice(a).replace(/[^0-9.-]+/g, "")); // Extract numeric value from price
-    const priceB = parseFloat(getPrice(b).replace(/[^0-9.-]+/g, ""));
-    if (descending) {
-      return priceB - priceA; // Descending order
-    } else {
-      return priceA - priceB; // Ascending order (default)
-    }
+    const priceA = getPriceValue(a);
+    const priceB = getPriceValue(b);
+    
+    return descending ? priceB - priceA : priceA - priceB;
   });
 }
 
@@ -47,13 +44,25 @@ function getPrice(item: any) {
   return USD.format(thePrice);
 }
 
+// Helper function to get numeric price value
+function getPriceValue(item: any): number {
+  let price = getPrice(item);
+  if (price === "N/A") return 0; // Handle items with no price
+  return parseFloat(price.replace(/[^0-9.-]+/g, ""));
+}
+
 export default function SearchResults({ data }: any) {
-  const [sortedData, setSortedData] = useState(data);
-  const [sortType, setSortType] = useState("---");
+  const [sortType, setSortType] = useState("Price: High to Low");
+  
+  // Create a deep copy of the data to avoid mutating the original
+  const initialSortedData = JSON.parse(JSON.stringify(data));
+  sortByPrice(initialSortedData.data, true);
+  const [sortedData, setSortedData] = useState(initialSortedData);
 
   useEffect(() => {
-    const newData = data;
-    sortByPrice(newData.data, sortType !== "Price: High to Low");
+    const newData = JSON.parse(JSON.stringify(data));
+    // Sort based on the selected sort type
+    sortByPrice(newData.data, sortType === "Price: High to Low");
     setSortedData(newData);
   }, [data, sortType]);
 

@@ -21,7 +21,7 @@ interface PriceChartProps {
   priceHistory: { date: string; price: number }[];
 }
 
-const PriceChartTest: React.FC<PriceChartProps> = ({ priceHistory }) => {
+const PriceChart: React.FC<PriceChartProps> = ({ priceHistory }) => {
   const chartData = priceHistory.map((entry) => ({
     date: new Date(entry.date).toLocaleDateString(undefined, {
       month: 'numeric',
@@ -29,6 +29,22 @@ const PriceChartTest: React.FC<PriceChartProps> = ({ priceHistory }) => {
     }),
     price: entry.price,
   }));
+
+  const getXAxisTicks = () => {
+    if (chartData.length <= 4) return chartData.map(entry => entry.date);
+  
+    // Get the indices for evenly spaced points
+    const lastIndex = chartData.length - 1;
+    const indices = [
+      0,
+      Math.floor(lastIndex / 3),
+      Math.floor((2 * lastIndex) / 3),
+      lastIndex
+    ];
+  
+    // Return the dates at these indices
+    return indices.map(index => chartData[index].date);
+  };
 
   const chartConfig = {
     price: {
@@ -88,6 +104,7 @@ const PriceChartTest: React.FC<PriceChartProps> = ({ priceHistory }) => {
               tickLine={false}
               axisLine={false}
               tickMargin={15}
+              ticks={getXAxisTicks()}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <defs>
@@ -121,4 +138,4 @@ const PriceChartTest: React.FC<PriceChartProps> = ({ priceHistory }) => {
   );
 };
 
-export default PriceChartTest;
+export default PriceChart;

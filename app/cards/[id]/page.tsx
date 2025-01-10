@@ -91,11 +91,110 @@ export default async function cardPage(params: any) {
                 <div className="text-green-700 text-xl font-bold">{getPrice(theCard.data)}</div>
               </CardDescription>
             </CardHeader>
+            <CardContent>
+              {priceHistory.length > 0 ? (
+                <div className="space-y-4">
+                  {/* Highest Price */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Highest Price</span>
+                    <span className="font-bold text-xl">
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                      }).format(Math.max(...priceHistory.map((entry: { price: any; }) => entry.price)))}
+                    </span>
+                  </div>
+
+                  {/* Lowest Price */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Lowest Price</span>
+                    <span className="font-bold text-xl">
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                      }).format(Math.min(...priceHistory.map((entry: { price: any; }) => entry.price)))}
+                    </span>
+                  </div>
+
+                  {/* Average Price */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Average Price</span>
+                    <span className="font-bold text-xl">
+                      {new Intl.NumberFormat('en-US', {
+                        style: 'currency',
+                        currency: 'USD'
+                      }).format(
+                        priceHistory.reduce((sum: any, entry: { price: any; }) => sum + entry.price, 0) / priceHistory.length
+                      )}
+                    </span>
+                  </div>
+
+                  {/* Price Change (from first to last entry) */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Price Change</span>
+                    <div className="flex items-center gap-2">
+                      {(() => {
+                        const firstPrice = priceHistory[0].price;
+                        const lastPrice = priceHistory[priceHistory.length - 1].price;
+                        const change = ((lastPrice - firstPrice) / firstPrice) * 100;
+                        const isPositive = change > 0;
+
+                        return (
+                          <>
+                            <span className={`font-bold text-xl ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                              {change.toFixed(2)}%
+                            </span>
+                            {isPositive ? (
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                              </svg>
+                            ) : (
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-red-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            )}
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </div>
+
+                  {/* 30-Day Moving Average */}
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">30-Day Average</span>
+                    <span className="font-bold text-xl">
+                      {(() => {
+                        const thirtyDaysAgo = new Date();
+                        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                        
+                        const recentPrices = priceHistory.filter(
+                          (                          entry: { date: string | number | Date; }) => new Date(entry.date) >= thirtyDaysAgo
+                        );
+
+                        if (recentPrices.length === 0) return 'N/A';
+
+                        const average = recentPrices.reduce((sum: any, entry: { price: any; }) => sum + entry.price, 0) / recentPrices.length;
+
+                        return new Intl.NumberFormat('en-US', {
+                          style: 'currency',
+                          currency: 'USD'
+                        }).format(average);
+                      })()}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center text-muted-foreground">
+                  No price history available
+                </div>
+              )}
+            </CardContent>
           </Card>
           <div className="">
             <PriceChart priceHistory={priceHistory} />
           </div>
         </div>
+        
       </div>
     </div>
   );

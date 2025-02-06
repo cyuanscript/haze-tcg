@@ -18,7 +18,7 @@ interface CardData {
 
 async function fetchAllCards() {
   const pageSize = 250;
-  const totalCount = 18506; // Total number of cards
+  const totalCount = 18686; // Total number of cards
   const totalPages = Math.ceil(totalCount / pageSize);
 
   for (let i = 61; i <= 70; i++) {

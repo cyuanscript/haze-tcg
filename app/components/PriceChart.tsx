@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import {
   Card,
@@ -9,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/card";
+import { Button } from "@/app/components/ui/button";
 import {
   ChartConfig,
   ChartContainer,
@@ -22,7 +24,33 @@ interface PriceChartProps {
 }
 
 const PriceChart: React.FC<PriceChartProps> = ({ priceHistory }) => {
-  const chartData = priceHistory.map((entry) => ({
+  const [timeRange, setTimeRange] = useState<'1Y' | '6M' | '3M' | '1M'>('1Y');
+
+  // Filter data based on selected time range
+  const getFilteredData = () => {
+    const currentDate = new Date();
+    const oldestDate = new Date(currentDate);
+
+    switch (timeRange) {
+      case '1Y':
+        oldestDate.setFullYear(currentDate.getFullYear() - 1);
+        break;
+      case '6M':
+        oldestDate.setMonth(currentDate.getMonth() - 6);
+        break;
+      case '3M':
+        oldestDate.setMonth(currentDate.getMonth() - 3);
+        break;
+      case '1M':
+        oldestDate.setMonth(currentDate.getMonth() - 1);
+        break;
+    }
+
+    return priceHistory.filter(entry => new Date(entry.date) >= oldestDate);
+  };
+
+  const filteredData = getFilteredData();
+  const chartData = filteredData.map((entry) => ({
     date: new Date(entry.date).toLocaleDateString(undefined, {
       month: 'numeric',
       day: 'numeric'
@@ -54,7 +82,7 @@ const PriceChart: React.FC<PriceChartProps> = ({ priceHistory }) => {
   } satisfies ChartConfig
 
   // Calculate min and max prices for Y-axis domain
-  const prices = priceHistory.map(entry => entry.price);
+  const prices = filteredData.map(entry => entry.price);
   const minPrice = Math.min(...prices);
   const maxPrice = Math.max(...prices);
 
@@ -83,10 +111,26 @@ const PriceChart: React.FC<PriceChartProps> = ({ priceHistory }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Price History</CardTitle>
-        <CardDescription>
-          Showing price changes over time
-        </CardDescription>
+        <div className="flex justify-between items-center">
+          <div>
+            <CardTitle>Price History</CardTitle>
+            <CardDescription>
+              Showing price changes over time
+            </CardDescription>
+          </div>
+          <div className="flex gap-2">
+            {(['1Y', '6M', '3M', '1M'] as const).map((range) => (
+              <Button
+                key={range}
+                variant={timeRange === range ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTimeRange(range)}
+              >
+                {range}
+              </Button>
+            ))}
+          </div>
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

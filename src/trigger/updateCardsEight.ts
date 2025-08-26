@@ -18,10 +18,10 @@ interface CardData {
 
 async function fetchAllCards() {
   const pageSize = 250;
-  const totalCount = 19155; // Total number of cards
+  const totalCount = 19500; // Total number of cards
   const totalPages = Math.ceil(totalCount / pageSize);
 
-  for (let i = 71; i <= 77; i++) {
+  for (let i = 71; i <= 78; i++) {
     try {
       const response = await axios.get(`https://api.pokemontcg.io/v2/cards?page=${i}&pageSize=${pageSize}`);
       const cards: CardData[] = response.data.data;

@@ -29,8 +29,6 @@ const Navbar = () => {
             <div className="hidden xl:flex gap-4">
               <Link href="/">Home</Link>
               <Link href="/">My Collection</Link>
-              <Link href="/">Card Finder</Link>
-              <Link href="/">Watchlist</Link>
             </div>
           </div>
           {/* Right */}

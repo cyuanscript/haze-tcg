@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="my-10 px-4 text-center">
       <div className="flex justify-center mb-2 items-center gap-2">
         <Image src="/icon.png" alt="" width={50} height={50}/>
-        <div className="text-2xl tracking-wide">HAZETCG</div>    
+        <div className="text-2xl tracking-wide">Haze TCG</div>    
       </div>
       <p className="font-bold mt-6 mb-20">See The Value Through the Haze.</p>  
       <small className="mb-2 block text-xs">Copyright &copy; 2024 Christopher Yuan.</small>

@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className="w-1/3 xl:w-1/2 flex items-center gap-12">
             <Link href="/" className="flex items-center gap-3">
             <Image src="/icon.png" alt="" width={50} height={50}/>
-            <div className="text-2xl tracking-wide">HAZETCG</div>
+            <div className="text-2xl tracking-wide">Haze TCG</div>
             </Link>
             <div className="hidden xl:flex gap-4">
               <Link href="/">Home</Link>

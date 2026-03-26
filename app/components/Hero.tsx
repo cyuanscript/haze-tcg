@@ -42,7 +42,7 @@ const Hero = () => {
                 investors to track the value of their collection.
               </p>
               <div className="flex flex-row gap-y-3 md:flex-row gap-x-4 mx-auto xl:mx-0">
-                <Link href="/login">
+                <Link href="/signup">
                   <Button className="gap-x-2 focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer">
                     Sign Up
                   </Button>
